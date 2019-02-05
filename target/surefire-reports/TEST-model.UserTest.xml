@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="model.UserTest" time="0.101" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="model.UserTest" time="0.043" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,7 +18,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\Devin\AppData\Local\Temp\surefire1017856387345685506\surefirebooter8416929564138640298.jar C:\Users\Devin\AppData\Local\Temp\surefire1017856387345685506 2019-02-05T20-17-51_179-jvmRun1 surefire3080769450507856995tmp surefire_03079290611371062599tmp"/>
+    <property name="sun.java.command" value="C:\Users\Devin\AppData\Local\Temp\surefire47511844759477537\surefirebooter7047864588994203040.jar C:\Users\Devin\AppData\Local\Temp\surefire47511844759477537 2019-02-05T20-24-06_444-jvmRun1 surefire2553929223052567455tmp surefire_07657839416313019102tmp"/>
     <property name="surefire.test.class.path" value="D:\Documenten\School\Semester 6\Kwetter\kwetter\target\test-classes;D:\Documenten\School\Semester 6\Kwetter\kwetter\target\classes;C:\Users\Devin\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar;C:\Users\Devin\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.0-RC2\junit-jupiter-api-5.4.0-RC2.jar;C:\Users\Devin\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\Devin\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\Devin\.m2\repository\org\junit\platform\junit-platform-commons\1.4.0-RC2\junit-platform-commons-1.4.0-RC2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Devin"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\Devin\AppData\Local\Temp\surefire1017856387345685506\surefirebooter8416929564138640298.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Devin\AppData\Local\Temp\surefire47511844759477537\surefirebooter7047864588994203040.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_144\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -60,5 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="getUserName" classname="model.UserTest" time="0.096"/>
+  <testcase name="getUserName" classname="model.UserTest" time="0.038"/>
 </testsuite>
