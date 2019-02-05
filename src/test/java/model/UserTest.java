@@ -12,6 +12,8 @@ class UserTest {
     @Test
     void getUserName() {
 
+        fail();
+
         User u = new User(
                 "UserName",
                 "Password",
