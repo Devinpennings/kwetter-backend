@@ -8,6 +8,12 @@
     <artifactId>KwetterServer</artifactId>
     <version>1.0</version>
 
+    <!--Required for latest maven version on Gitlab CI-->
+    <properties>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
