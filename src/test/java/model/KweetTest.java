@@ -1,4 +1,4 @@
-package model.Kweet;
+package model;
 
 import model.Kweet;
 import model.Mock;
