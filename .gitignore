@@ -1,9 +1,10 @@
 # Intellij
-.idea/*
+\.idea/
 *.iml
 *.iws
 
-# Maven
-log/*
-target/*
-out/*
+# Mave
+\.log/
+\.target/
+\.out/
+
