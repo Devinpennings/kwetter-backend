@@ -1,4 +1,7 @@
-package model;
+package model.Kweet;
+
+
+import model.Model;
 
 public abstract class Tag extends Model {
 

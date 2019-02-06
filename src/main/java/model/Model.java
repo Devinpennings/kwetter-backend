@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public abstract class Model {
 
     //region Fields
-    private int id;
+    private long id;
 
     //TODO: Timestamps should be updated with JPA @nnotations.
     private Timestamp createdAt;
@@ -14,7 +14,7 @@ public abstract class Model {
     //endregion
 
     //region Properties
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 

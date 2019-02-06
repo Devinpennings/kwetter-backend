@@ -1,4 +1,7 @@
-package model;
+package model.User;
+
+import model.Kweet.Kweet;
+import model.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +16,6 @@ public class User extends Model {
     private String website;
     private String picture;
     private String email;
-    private UserRole role;
 
     private Collection<User> followers;
     private Collection<User> following;
@@ -78,14 +80,6 @@ public class User extends Model {
         this.email = email;
     }
 
-    public UserRole getRole() {
-        return this.role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
     public Collection<User> getFollowers() {
         return this.followers;
     }
@@ -104,7 +98,7 @@ public class User extends Model {
     //endregion
 
     //region Constructors
-    public User(String userName, String password, String biography, String location, String website, String picture, String email, UserRole role) {
+    public User(String userName, String password, String biography, String location, String website, String picture, String email) {
         this.userName = userName;
         this.password = password;
         this.biography = biography;
@@ -112,12 +106,35 @@ public class User extends Model {
         this.website = website;
         this.picture = picture;
         this.email = email;
-        this.role = role;
 
         this.followers = new ArrayList<User>();
         this.following = new ArrayList<User>();
         this.postedKweets = new ArrayList<Kweet>();
         this.likedKweets = new ArrayList<Kweet>();
+    }
+    //endregion
+
+    //region Methods
+
+    /**
+     * Follow this user.
+     * @param followedBy
+     */
+    public void follow(User followedBy){
+
+        followedBy.following.add(this);
+        this.followers.add(followedBy);
+
+    }
+
+    /**
+     * Post a kweet.
+     * @param kweet
+     */
+    public void postKweet(Kweet kweet){
+
+        this.postedKweets.add(kweet);
+
     }
     //endregion
 
