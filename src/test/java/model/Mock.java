@@ -1,8 +1,5 @@
 package model;
 
-import model.Kweet.Kweet;
-import model.User.User;
-
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -1,6 +1,4 @@
-package model.Kweet;
-
-import model.Kweet.Tag;
+package model;
 
 
 public class Trend extends Tag {

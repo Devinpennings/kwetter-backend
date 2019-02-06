@@ -1,6 +1,4 @@
-package model.Kweet;
-
-import model.User.User;
+package model;
 
 public class Mention extends Tag {
 

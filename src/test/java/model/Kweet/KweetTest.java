@@ -1,7 +1,8 @@
 package model.Kweet;
 
+import model.Kweet;
 import model.Mock;
-import model.User.User;
+import model.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
