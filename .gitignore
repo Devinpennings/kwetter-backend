@@ -1,9 +1,46 @@
 # Intellij
-.idea/*
+\.idea/
 *.iml
 *.iws
 
-# Maven
-log/*
-target/*
-out/*
+# Mave
+\.log/
+\.target/
+\.out/
+
+
+target/classes/data/IDAO\.class
+
+target/classes/data/memory/KweetMemoryModelMemoryDAO\.class
+
+target/classes/data/memory/MemoryUniqueIdentifier\.class
+
+target/classes/data/memory/MentionMemoryModelMemoryDAO\.class
+
+target/classes/data/memory/ModelMemoryDAO\.class
+
+target/classes/data/memory/TrendMemoryModelMemoryDAO\.class
+
+target/classes/data/memory/UserMemoryModelMemoryDAO\.class
+
+target/classes/model/Kweet\.class
+
+target/classes/model/Mention\.class
+
+target/classes/model/Model\.class
+
+target/classes/model/Tag\.class
+
+target/classes/model/Trend\.class
+
+target/classes/model/User\.class
+
+target/classes/util/IFunction\.class
+
+target/test-classes/data/ModelMemoryDAOTest\.class
+
+target/test-classes/model/KweetTest\.class
+
+target/test-classes/model/Mock\.class
+
+target/test-classes/model/UserTest\.class
