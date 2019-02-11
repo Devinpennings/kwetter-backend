@@ -3,7 +3,7 @@ package model;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-public abstract class Model {
+public abstract class Model implements Comparable<Model> {
 
     //region Fields
     private long id;
@@ -24,6 +24,10 @@ public abstract class Model {
         return this.updatedAt;
     }
 
+    @Override
+    public int compareTo(Model o) {
+        return Long.compare(this.getId(), o.getId());
+    }
 
     //endregion
 

@@ -10,6 +10,8 @@ public interface IDAO<T> {
 
     Collection<T> get();
 
+    Collection<T> get(PaginationDetails paginationDetails);
+
     Optional<T> get(long id);
 
     void add(T item);

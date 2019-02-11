@@ -44,3 +44,27 @@ target/test-classes/model/KweetTest\.class
 target/test-classes/model/Mock\.class
 
 target/test-classes/model/UserTest\.class
+
+target/classes/data/interfaces/IDAO\.class
+
+target/classes/data/interfaces/ITrendDAO\.class
+
+target/classes/data/memory/TrendMemoryDAO\.class
+
+target/classes/data/PaginationDetails\.class
+
+target/classes/META-INF/kwetter\.kotlin_module
+
+target/classes/service/KweetService\.class
+
+target/classes/service/TrendService\.class
+
+target/classes/service/UserService\.class
+
+target/classes/util/exceptions/NotFoundException\.class
+
+target/classes/util/MapUtil\.class
+
+target/test-classes/data/TrendMemoryDAOTest\.class
+
+target/test-classes/META-INF/kwetter\.kotlin_module

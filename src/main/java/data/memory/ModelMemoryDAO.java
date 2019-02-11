@@ -1,16 +1,15 @@
 package data.memory;
 
-import data.IDAO;
+import data.interfaces.IDAO;
+import data.PaginationDetails;
 import model.Model;
 import util.IFunction;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 
-public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
+public class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
-    private Collection<T> items;
+    protected Set<T> items;
     private static MemoryUniqueIdentifier id;
 
     static {
@@ -19,7 +18,7 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
     public ModelMemoryDAO(){
 
-        this.items = new ArrayList<>();
+        this.items = new TreeSet<>();
 
     }
 
@@ -27,6 +26,17 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     public Collection<T> get(){
 
         return this.items;
+
+    }
+
+    @Override
+    public Collection<T> get(PaginationDetails paginationDetails){
+
+        int from = paginationDetails.getIndexFrom();
+        int to = paginationDetails.getIndexTo();
+
+        ArrayList<T> list = new ArrayList<>(this.items);
+        return list.subList(from, to);
 
     }
 
@@ -49,7 +59,6 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
         this.items.add(item);
 
     }
-
 
     @Override
     public void add(Collection<T> items){
