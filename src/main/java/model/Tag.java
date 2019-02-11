@@ -1,8 +1,5 @@
 package model;
 
-
-import model.Model;
-
 public abstract class Tag extends Model {
 
     //region Fields

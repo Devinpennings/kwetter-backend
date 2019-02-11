@@ -10,7 +10,9 @@ public class Kweet extends Model {
 
     private Collection<User> likers;
 
-    private Collection<Tag> tags;
+    private Collection<Mention> mentions;
+
+    private Collection<Trend>  trends;
     //endregion
 
     //region Properties
@@ -24,13 +26,16 @@ public class Kweet extends Model {
 
     public Collection<User> getLikers() { return this.likers; }
 
-    public Collection<Tag> getTags() { return this.tags; }
+    public Collection<Mention> getMentions() { return this.mentions; }
+
+    public Collection<Trend> getTrends() { return this.trends; }
     //endregion
 
     //region Constructors
     public Kweet(String message) {
         this.message = message;
-        this.tags = new ArrayList<Tag>();
+        this.mentions = new ArrayList<>();
+        this.trends = new ArrayList<>();
         this.likers = new ArrayList<User>();
     }
     //endregion
