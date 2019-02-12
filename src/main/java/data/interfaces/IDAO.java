@@ -1,4 +1,6 @@
-package data;
+package data.interfaces;
+
+import data.PaginationDetails;
 
 import java.util.Collection;
 import java.util.Optional;
