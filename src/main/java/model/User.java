@@ -124,6 +124,13 @@ public class User extends Model {
 
     }
 
+    public void unfollow(User follower) {
+
+        follower.following.remove(this);
+        this.followers.remove(follower);
+
+    }
+
     /**
      * Post a kweet.
      * @param kweet

@@ -1,4 +1,6 @@
-package data;
+package data.interfaces;
+
+import data.PaginationDetails;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -9,6 +11,8 @@ import java.util.Optional;
 public interface IDAO<T> {
 
     Collection<T> get();
+
+    Collection<T> get(PaginationDetails paginationDetails);
 
     Optional<T> get(long id);
 
