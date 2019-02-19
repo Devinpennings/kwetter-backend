@@ -1,5 +1,6 @@
-package data;
+package data.memory;
 
+import data.PaginationDetails;
 import data.memory.ModelMemoryDAO;
 import model.Mock;
 import model.User;
@@ -19,7 +20,7 @@ class ModelMemoryDAOTest {
     void getAndAdd() {
 
         Collection<User> users = Mock.users(10);
-        ModelMemoryDAO<User> userDAO = new ModelMemoryDAO<>();
+        ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
 
         userDAO.add(users);
         assertTrue(userDAO.get().containsAll(users));
@@ -30,7 +31,7 @@ class ModelMemoryDAOTest {
     void getWithPaginationLimit() {
 
         Collection<User> users = Mock.users(100);
-        ModelMemoryDAO<User> userDAO = new ModelMemoryDAO<>();
+        ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
         userDAO.add(users);
 
         Collection<User> toGet = new ArrayList<>(users).subList(0, 10);
@@ -45,7 +46,7 @@ class ModelMemoryDAOTest {
     void getWithPaginationLimitAndPage() {
 
         Collection<User> users = Mock.users(100);
-        ModelMemoryDAO<User> userDAO = new ModelMemoryDAO<>();
+        ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
         userDAO.add(users);
 
         Collection<User> toGet = new ArrayList<>(users).subList(20, 30);
@@ -66,7 +67,7 @@ class ModelMemoryDAOTest {
     void getWithIdAndAdd() {
 
         User user = Mock.user();
-        ModelMemoryDAO<User> userDAO = new ModelMemoryDAO<>();
+        ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
 
         userDAO.add(user);
         assertEquals(user, userDAO.get(user.getId()).get());
@@ -77,7 +78,7 @@ class ModelMemoryDAOTest {
     void update() {
 
         User user = Mock.user();
-        ModelMemoryDAO<User> userDAO = new ModelMemoryDAO<>();
+        ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
         userDAO.add(user);
 
         String newEmail = "test@mail.com";
@@ -92,7 +93,7 @@ class ModelMemoryDAOTest {
     void delete() {
 
         User user = Mock.user();
-        ModelMemoryDAO<User> userDAO = new ModelMemoryDAO<>();
+        ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
 
         userDAO.add(user);
         assertEquals(user, userDAO.get(user.getId()).get());

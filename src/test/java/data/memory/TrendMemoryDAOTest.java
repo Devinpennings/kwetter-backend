@@ -1,13 +1,10 @@
-package data;
+package data.memory;
 
-import data.memory.TrendMemoryDAO;
 import model.Mock;
 import model.Trend;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -16,11 +16,11 @@ public interface IDAO<T> {
 
     Optional<T> get(long id);
 
-    void add(T item);
+    T add(T item);
 
-    void add(Collection<T> items);
+    Collection<T> add(Collection<T> items);
 
-    void update(T item);
+    Optional<T> update(T item);
 
     void delete(T item);
 

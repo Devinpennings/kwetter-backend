@@ -36,7 +36,7 @@ public class Mock {
     }
 
     public static Kweet kweet(){
-        return new Kweet("Dit is een kweet");
+        return new Kweet("Dit is een kweet", Mock.user());
     }
 
     public static Collection<Kweet> kweets(int amount){

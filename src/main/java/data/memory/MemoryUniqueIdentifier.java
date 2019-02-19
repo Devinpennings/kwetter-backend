@@ -1,8 +1,11 @@
 package data.memory;
 
+import javax.ejb.Stateful;
+
 /**
  * Created by Devin
  */
+@Stateful
 public class MemoryUniqueIdentifier {
 
     private long id = 1L;

@@ -1,17 +1,19 @@
 package service;
 
-import data.interfaces.IDAO;
 import data.interfaces.ITrendDAO;
-import data.memory.ModelMemoryDAO;
-import model.Trend;
+import data.memory.TrendMemoryDAO;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.Collection;
 
 /**
  * Created by Devin
  */
+@Stateless
 public class TrendService {
 
+    @Inject
     private ITrendDAO trendDAO;
 
     public Collection<String> getPopular(int limit){

@@ -1,5 +1,6 @@
 package data;
 
+import javax.ejb.Stateful;
 import java.security.InvalidParameterException;
 
 /**

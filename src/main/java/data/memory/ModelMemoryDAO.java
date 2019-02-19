@@ -3,21 +3,25 @@ package data.memory;
 import data.interfaces.IDAO;
 import data.PaginationDetails;
 import model.Model;
+import model.User;
 import util.IFunction;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.text.html.Option;
+import java.sql.Timestamp;
 import java.util.*;
 
-public class ModelMemoryDAO<T extends Model> implements IDAO<T> {
+public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
-    protected Set<T> items;
-    private static MemoryUniqueIdentifier id;
-
-    static {
-        id = new MemoryUniqueIdentifier();
-    }
+    @Inject
+    private MemoryUniqueIdentifier id;
+    Set<T> items;
 
     public ModelMemoryDAO(){
 
+        this.id = new MemoryUniqueIdentifier();
         this.items = new TreeSet<>();
 
     }
@@ -50,30 +54,45 @@ public class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     }
 
     @Override
-    public void add(T item) {
+    public T add(T item) {
 
         if (item.getId() == 0L) {
             item.setId(id.next());
         }
 
+        item.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        item.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
         this.items.add(item);
+
+        return item;
 
     }
 
     @Override
-    public void add(Collection<T> items){
+    public Collection<T> add(Collection<T> items){
 
         for (T item : items){
             this.add(item);
         }
 
+        return items;
+
     }
 
     @Override
-    public void update(T item){
+    public Optional<T> update(T item){
+
+        boolean wasPresent = this.items.contains(item);
 
         this.executeForPresent(item, (o) -> this.items.remove(o));
+
+        item.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
         this.items.add(item);
+
+        if(wasPresent) return Optional.of(item);
+        else return Optional.empty();
 
     }
 

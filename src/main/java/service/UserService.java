@@ -2,17 +2,23 @@ package service;
 
 import data.interfaces.IDAO;
 import data.PaginationDetails;
+import data.interfaces.IUserDAO;
 import model.User;
 import util.exceptions.NotFoundException;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Created by Devin
  */
+@Stateless
 public class UserService {
 
-    private IDAO<User> userDAO;
+    @Inject
+    private IUserDAO userDAO;
 
     public User get(long id) throws NotFoundException {
         return userDAO.get(id).orElseThrow(NotFoundException::new);
@@ -26,12 +32,12 @@ public class UserService {
         return userDAO.get(paginationDetails);
     }
 
-    public void update(User user){
-        userDAO.update(user);
+    public Optional<User> update(User user){
+        return userDAO.update(user);
     }
 
-    public void add(User user){
-        userDAO.add(user);
+    public User add(User user){
+        return userDAO.add(user);
     }
 
     public void follow(long followerId, long toFollowId) throws NotFoundException {

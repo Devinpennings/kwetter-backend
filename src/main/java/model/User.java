@@ -1,12 +1,16 @@
 package model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class User extends Model {
 
     //region Fields
-    private String userName;
+    private String username;
+
+    @JsonIgnore
     private String password;
     private String biography;
     private String location;
@@ -14,28 +18,31 @@ public class User extends Model {
     private String picture;
     private String email;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)
     private Collection<User> followers;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)
     private Collection<User> following;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Kweet.class)
     private Collection<Kweet> postedKweets;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Kweet.class)
     private Collection<Kweet> likedKweets;
     //endregion
 
     //region Properties
-    public String getUserName() {
-        return this.userName;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
+    public String getPassword() { return this.password; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
     public String getBiography() {
         return this.biography;
@@ -95,8 +102,15 @@ public class User extends Model {
     //endregion
 
     //region Constructors
-    public User(String userName, String password, String biography, String location, String website, String picture, String email) {
-        this.userName = userName;
+    public User(){
+        this.followers = new ArrayList<>();
+        this.following = new ArrayList<>();
+        this.postedKweets = new ArrayList<>();
+        this.likedKweets = new ArrayList<>();
+    }
+
+    public User(String username, String password, String biography, String location, String website, String picture, String email) {
+        this.username = username;
         this.password = password;
         this.biography = biography;
         this.location = location;
@@ -104,10 +118,10 @@ public class User extends Model {
         this.picture = picture;
         this.email = email;
 
-        this.followers = new ArrayList<User>();
-        this.following = new ArrayList<User>();
-        this.postedKweets = new ArrayList<Kweet>();
-        this.likedKweets = new ArrayList<Kweet>();
+        this.followers = new ArrayList<>();
+        this.following = new ArrayList<>();
+        this.postedKweets = new ArrayList<>();
+        this.likedKweets = new ArrayList<>();
     }
     //endregion
 
@@ -138,6 +152,7 @@ public class User extends Model {
     public void postKweet(Kweet kweet){
 
         this.postedKweets.add(kweet);
+        kweet.setAuthor(this);
 
     }
     //endregion
