@@ -24,6 +24,14 @@ public abstract class Model implements Comparable<Model> {
         return this.updatedAt;
     }
 
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public int compareTo(Model o) {
         return Long.compare(this.getId(), o.getId());

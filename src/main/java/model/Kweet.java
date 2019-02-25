@@ -1,5 +1,8 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -8,10 +11,10 @@ public class Kweet extends Model {
     //region Fields
     private String message;
 
-    private Collection<User> likers;
+    private User author;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)    private Collection<User> likers;
     private Collection<Mention> mentions;
-
     private Collection<Trend>  trends;
     //endregion
 
@@ -19,6 +22,10 @@ public class Kweet extends Model {
     public String getMessage() {
         return this.message;
     }
+
+    public User getAuthor() { return this.author; }
+
+    public void setAuthor(User author) { this.author = author; }
 
     public void setMessage(String message) {
         this.message = message;
@@ -32,11 +39,25 @@ public class Kweet extends Model {
     //endregion
 
     //region Constructors
-    public Kweet(String message) {
+    public Kweet(){
+        this.mentions = new ArrayList<>();
+        this.trends = new ArrayList<>();
+        this.likers = new ArrayList<>();
+    }
+
+    public Kweet(String message){
         this.message = message;
         this.mentions = new ArrayList<>();
         this.trends = new ArrayList<>();
-        this.likers = new ArrayList<User>();
+        this.likers = new ArrayList<>();
+    }
+
+    public Kweet(String message, User author) {
+        this.message = message;
+        this.author = author;
+        this.mentions = new ArrayList<>();
+        this.trends = new ArrayList<>();
+        this.likers = new ArrayList<>();
     }
     //endregion
 
@@ -50,6 +71,13 @@ public class Kweet extends Model {
 
         this.likers.add(u);
         u.getLikedKweets().add(this);
+
+    }
+
+    public void unLike(User u) {
+
+        this.likers.remove(u);
+        u.getLikedKweets().remove(this);
 
     }
 
