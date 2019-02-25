@@ -1,20 +1,37 @@
 package model;
 
-import java.sql.Time;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
+@MappedSuperclass
 public abstract class Model implements Comparable<Model> {
 
     //region Fields
-    private long id;
+    @Id
+    private String id;
+
     private Timestamp createdAt;
     private Timestamp updatedAt;
     //endregion
 
-    //region Properties
-    public long getId() { return this.id; }
+    @PrePersist
+    protected void onCreate(){
+        this.id = UUID.randomUUID().toString();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        this.updatedAt = timestamp;
+        this.createdAt = timestamp;
+    }
 
-    public void setId(long id) { this.id = id; }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    //region Properties
+    public String getId() { return this.id; }
+
+    public void setId(String id) { this.id = id; }
 
     public Timestamp getCreatedAt() {
         return this.createdAt;
@@ -34,7 +51,7 @@ public abstract class Model implements Comparable<Model> {
 
     @Override
     public int compareTo(Model o) {
-        return Long.compare(this.getId(), o.getId());
+        return this.createdAt.compareTo(o.createdAt);
     }
 
     //endregion

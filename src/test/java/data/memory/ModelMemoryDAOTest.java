@@ -1,7 +1,6 @@
 package data.memory;
 
-import data.PaginationDetails;
-import data.memory.ModelMemoryDAO;
+import util.PaginationDetails;
 import model.Mock;
 import model.User;
 import org.junit.jupiter.api.Test;

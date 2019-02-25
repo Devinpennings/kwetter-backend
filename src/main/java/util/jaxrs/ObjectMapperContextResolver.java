@@ -15,7 +15,7 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 
     public ObjectMapperContextResolver() {
         mapper = new ObjectMapper();
-        DateFormat df = new SimpleDateFormat("EEE MMM dd yyyy '00:00:00' 'GMT'Z '('z')'");
+        DateFormat df = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z '('z')'");
         mapper.setDateFormat(df);
     }
 

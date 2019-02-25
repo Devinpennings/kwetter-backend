@@ -3,19 +3,33 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "kweets")
 public class Kweet extends Model {
 
     //region Fields
     private String message;
 
+    @ManyToOne
     private User author;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)    private Collection<User> likers;
-    private Collection<Mention> mentions;
-    private Collection<Trend>  trends;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)
+    @ManyToMany
+    @JoinTable(name = "kweet_liker",
+               joinColumns = @JoinColumn(name = "fk_kweet"),
+               inverseJoinColumns = @JoinColumn(name = "fk_user"))
+    private Set<User> likers;
+
+    @OneToMany(mappedBy = "kweet")
+    private Set<Mention> mentions;
+
+    @OneToMany(mappedBy = "kweet")
+    private Set<Trend> trends;
     //endregion
 
     //region Properties
@@ -40,24 +54,24 @@ public class Kweet extends Model {
 
     //region Constructors
     public Kweet(){
-        this.mentions = new ArrayList<>();
-        this.trends = new ArrayList<>();
-        this.likers = new ArrayList<>();
+        this.mentions = new HashSet<>();
+        this.trends = new HashSet<>();
+        this.likers = new HashSet<>();
     }
 
     public Kweet(String message){
         this.message = message;
-        this.mentions = new ArrayList<>();
-        this.trends = new ArrayList<>();
-        this.likers = new ArrayList<>();
+        this.mentions = new HashSet<>();
+        this.trends = new HashSet<>();
+        this.likers = new HashSet<>();
     }
 
     public Kweet(String message, User author) {
         this.message = message;
         this.author = author;
-        this.mentions = new ArrayList<>();
-        this.trends = new ArrayList<>();
-        this.likers = new ArrayList<>();
+        this.mentions = new HashSet<>();
+        this.trends = new HashSet<>();
+        this.likers = new HashSet<>();
     }
     //endregion
 

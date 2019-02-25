@@ -1,6 +1,6 @@
 package data.interfaces;
 
-import data.PaginationDetails;
+import util.PaginationDetails;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -14,7 +14,7 @@ public interface IDAO<T> {
 
     Collection<T> get(PaginationDetails paginationDetails);
 
-    Optional<T> get(long id);
+    Optional<T> get(String id);
 
     T add(T item);
 
@@ -23,5 +23,7 @@ public interface IDAO<T> {
     Optional<T> update(T item);
 
     void delete(T item);
+
+    Collection<T> search(String term);
 
 }

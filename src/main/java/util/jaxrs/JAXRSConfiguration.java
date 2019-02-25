@@ -21,6 +21,4 @@ public class JAXRSConfiguration extends ResourceConfig {
         register(KweetRESTController.class);
         register(UserRESTController.class);
     }
-
-
 }
