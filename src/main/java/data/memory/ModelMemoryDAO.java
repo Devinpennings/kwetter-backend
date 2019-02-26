@@ -5,12 +5,11 @@ import util.PaginationDetails;
 import model.Model;
 import util.IFunction;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
-    Set<T> items;
+    protected final Set<T> items;
 
     public ModelMemoryDAO(){
         this.items = new TreeSet<>();
@@ -27,7 +26,7 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     public Collection<T> get(PaginationDetails paginationDetails){
 
         int from = paginationDetails.getIndexFrom();
-        int to = paginationDetails.getIndexTo();
+        int to = paginationDetails.getIndexTo() > this.items.size() ? this.items.size() : paginationDetails.getIndexTo();
 
         ArrayList<T> list = new ArrayList<>(this.items);
         return list.subList(from, to);
@@ -38,7 +37,7 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     public Optional<T> get(String id){
 
         return items.stream()
-                .filter(i -> i.getId() == id)
+                .filter(i -> i.getId().equals(id))
                 .findFirst();
 
     }
@@ -46,8 +45,7 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     @Override
     public T add(T item) {
 
-        item.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        item.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        item.onCreate();
 
         this.items.add(item);
 
@@ -73,7 +71,7 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
         this.executeForPresent(item, (o) -> this.items.remove(o));
 
-        item.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        item.onUpdate();
 
         this.items.add(item);
 

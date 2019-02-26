@@ -21,7 +21,13 @@ public class TrendMemoryDAO extends ModelMemoryDAO<Trend> implements ITrendDAO {
 
         ArrayList<String> keys = new ArrayList<>(map.keySet());
         Collections.reverse(keys);
-        return keys.subList(0, limit);
+
+        if(keys.size() < limit) {
+            return keys.subList(0, keys.size());
+        } else {
+            return keys.subList(0, limit);
+        }
+
 
     }
 

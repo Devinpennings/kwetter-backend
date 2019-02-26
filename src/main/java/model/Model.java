@@ -16,7 +16,7 @@ public abstract class Model implements Comparable<Model> {
     //endregion
 
     @PrePersist
-    protected void onCreate(){
+    public void onCreate(){
         this.id = UUID.randomUUID().toString();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         this.updatedAt = timestamp;
@@ -24,7 +24,7 @@ public abstract class Model implements Comparable<Model> {
     }
 
     @PreUpdate
-    protected void onUpdate(){
+    public void onUpdate(){
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
@@ -51,7 +51,19 @@ public abstract class Model implements Comparable<Model> {
 
     @Override
     public int compareTo(Model o) {
-        return this.createdAt.compareTo(o.createdAt);
+
+        if (this.createdAt != null && o.getCreatedAt() != null){
+            int date = Integer.compare(this.createdAt.getNanos(), o.createdAt.getNanos());
+            if (date != 0) return date;
+        }
+
+        if (this.id != null && o.getId() != null) {
+            return this.id.compareTo(o.getId());
+        }
+
+        return Integer.compare(this.hashCode(), o.hashCode());
+
+
     }
 
     //endregion
