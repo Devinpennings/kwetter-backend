@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -17,10 +19,11 @@ public abstract class Model implements Comparable<Model> {
 
     @PrePersist
     public void onCreate(){
-        this.id = UUID.randomUUID().toString();
+        if (this.id == null) this.id = UUID.randomUUID().toString();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        if (this.createdAt == null)
+            this.createdAt = timestamp;
         this.updatedAt = timestamp;
-        this.createdAt = timestamp;
     }
 
     @PreUpdate
@@ -41,12 +44,23 @@ public abstract class Model implements Comparable<Model> {
         return this.updatedAt;
     }
 
+    @JsonIgnore
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
+    @JsonIgnore
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Model) {
+            Model other = (Model) o;
+            return this.id.equals(((Model) o).getId());
+        }
+        return false;
     }
 
     @Override

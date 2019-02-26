@@ -62,7 +62,7 @@ public class UserRESTController {
     public Response put(@Valid User user){
         Optional<User> result = this.service.update(user);
         if (result.isPresent()) {
-            return Response.ok(result).build();
+            return Response.ok(result.get()).build();
         } else {
             return Response.status(Response.Status.NO_CONTENT).build();
         }

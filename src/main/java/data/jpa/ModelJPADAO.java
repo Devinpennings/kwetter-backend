@@ -60,12 +60,21 @@ public abstract class ModelJPADAO<T extends Model> implements IDAO<T> {
 
     @Override
     public Optional<T> update(T item) {
-        boolean wasPresent = this.entityManager.contains(item);
 
-        this.entityManager.persist(item);
+        T existing = item.getId() == null ? null : this.entityManager.find(this.entityClass, item.getId());
 
-        if(wasPresent) return Optional.of(item);
-        else return Optional.empty();
+        if (existing != null) {
+            this.entityManager.merge(item);
+        } else {
+            this.entityManager.persist(item);
+        }
+
+        if (existing == null) {
+           return Optional.of(item);
+        }
+
+        return Optional.empty();
+
     }
 
     @Override

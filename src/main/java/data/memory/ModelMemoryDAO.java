@@ -69,13 +69,13 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
         boolean wasPresent = this.items.contains(item);
 
-        this.executeForPresent(item, (o) -> this.items.remove(o));
+        this.executeForPresent(item, this.items::remove);
 
         item.onUpdate();
 
         this.items.add(item);
 
-        if(wasPresent) return Optional.of(item);
+        if(!wasPresent) return Optional.of(item);
         else return Optional.empty();
 
     }
