@@ -5,6 +5,7 @@ import model.User;
 
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Default;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 

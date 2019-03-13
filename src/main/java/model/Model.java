@@ -56,11 +56,11 @@ public abstract class Model implements Comparable<Model> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Model) {
-            Model other = (Model) o;
-            return this.id.equals(((Model) o).getId());
-        }
-        return false;
+        if (o instanceof Model)
+            if(((Model) o).getId() != null && this.id != null)
+                return this.id.equals(((Model) o).getId());
+
+        return this.hashCode() == o.hashCode();
     }
 
     @Override

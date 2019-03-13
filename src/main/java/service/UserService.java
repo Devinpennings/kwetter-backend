@@ -5,7 +5,6 @@ import data.interfaces.IUserDAO;
 import model.User;
 import util.exceptions.NotFoundException;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Optional;
@@ -13,11 +12,14 @@ import java.util.Optional;
 /**
  * Created by Devin
  */
-@Stateless
 public class UserService {
 
     @Inject
     private IUserDAO userDAO;
+
+    public void setDAO(IUserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     public User get(String id) throws NotFoundException {
         return userDAO.get(id).orElseThrow(NotFoundException::new);
@@ -62,5 +64,4 @@ public class UserService {
         userDAO.update(toUnfollow);
 
     }
-
 }

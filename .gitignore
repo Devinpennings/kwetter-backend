@@ -230,3 +230,11 @@ target/kwetter/WEB-INF/classes/META-INF/kwetter\.kotlin_module
 target/kwetter/WEB-INF/classes/META-INF/persistence\.xml
 
 target/kwetter/WEB-INF/classes/util/PaginationDetails\.class
+
+target/classes/controller/rest/SearchRESTController\.class
+
+target/classes/service/SearchService\.class
+
+target/kwetter/WEB-INF/classes/controller/rest/SearchRESTController\.class
+
+target/kwetter/WEB-INF/classes/service/SearchService\.class

@@ -2,11 +2,12 @@ package data.memory;
 
 import model.Mock;
 import model.Trend;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * Created by Devin
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrendMemoryDAOTest {
 
     @Test
-    void testGetPopular(){
+    public void testGetPopular(){
 
         Map<String, Integer> occurencesMap = new TreeMap<>();
         occurencesMap.put("Plek 1", 100);

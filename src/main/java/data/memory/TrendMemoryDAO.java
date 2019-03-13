@@ -4,6 +4,8 @@ import data.interfaces.ITrendDAO;
 import model.Trend;
 import util.MapUtil;
 
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Default;
 import javax.inject.Singleton;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
  * Created by Devin
  */
 @Singleton
+@Default
 public class TrendMemoryDAO extends ModelMemoryDAO<Trend> implements ITrendDAO {
 
     public Collection<String> getPopular(int limit) {

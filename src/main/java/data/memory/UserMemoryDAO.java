@@ -3,6 +3,8 @@ package data.memory;
 import data.interfaces.IUserDAO;
 import model.User;
 
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Default;
 import javax.inject.Singleton;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -10,6 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Devin
  */
+@Default
 @Singleton
 public class UserMemoryDAO extends ModelMemoryDAO<User> implements IUserDAO {
 
