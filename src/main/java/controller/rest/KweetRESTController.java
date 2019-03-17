@@ -30,7 +30,7 @@ public class KweetRESTController {
 
     @GET
     @Path("{id}")
-    public Response get(@PathParam("id") long id){
+    public Response get(@PathParam("id") String id){
         try {
             return Response.ok(this.service.get(id)).build();
         } catch (NotFoundException e) {
@@ -40,7 +40,7 @@ public class KweetRESTController {
 
     @POST
     public Response post(@Valid Kweet kweet,
-                         @QueryParam("userId") long userId){
+                         @QueryParam("userId") String userId){
         try {
             return Response.ok(this.service.add(kweet, userId)).build();
         } catch (NotFoundException e) {
@@ -50,8 +50,8 @@ public class KweetRESTController {
 
     @POST
     @Path("{id}/like")
-    public Response like(@PathParam("id") long id,
-                         @QueryParam("userId") long userId){
+    public Response like(@PathParam("id") String id,
+                         @QueryParam("userId") String userId){
         try {
             this.service.like(id, userId);
             return Response.ok().build();
@@ -62,8 +62,8 @@ public class KweetRESTController {
 
     @POST
     @Path("{id}/unlike")
-    public Response unlike(@PathParam("id") long id,
-                           @QueryParam("userId") long userId){
+    public Response unlike(@PathParam("id") String id,
+                           @QueryParam("userId") String userId){
         try {
             this.service.unLike(id, userId);
             return Response.ok().build();

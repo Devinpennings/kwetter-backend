@@ -2,9 +2,13 @@ package model;
 
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "users")
 public class User extends Model {
 
     //region Fields
@@ -19,16 +23,23 @@ public class User extends Model {
     private String email;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)
-    private Collection<User> followers;
+    @ManyToMany(mappedBy = "following")
+    private Set<User> followers;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)
-    private Collection<User> following;
+    @ManyToMany
+    @JoinTable(name = "user_follower",
+            joinColumns = @JoinColumn(name = "fk_follower"),
+            inverseJoinColumns = @JoinColumn(name = "fk_user"))
+    private Set<User> following;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Kweet.class)
-    private Collection<Kweet> postedKweets;
+    @OneToMany(mappedBy = "author")
+    private Set<Kweet> postedKweets;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Kweet.class)
-    private Collection<Kweet> likedKweets;
+    @ManyToMany
+    private Set<Kweet> likedKweets;
     //endregion
 
     //region Properties
@@ -103,10 +114,10 @@ public class User extends Model {
 
     //region Constructors
     public User(){
-        this.followers = new ArrayList<>();
-        this.following = new ArrayList<>();
-        this.postedKweets = new ArrayList<>();
-        this.likedKweets = new ArrayList<>();
+        this.followers = new HashSet<>();
+        this.following = new HashSet<>();
+        this.postedKweets = new HashSet<>();
+        this.likedKweets = new HashSet<>();
     }
 
     public User(String username, String password, String biography, String location, String website, String picture, String email) {
@@ -118,10 +129,10 @@ public class User extends Model {
         this.picture = picture;
         this.email = email;
 
-        this.followers = new ArrayList<>();
-        this.following = new ArrayList<>();
-        this.postedKweets = new ArrayList<>();
-        this.likedKweets = new ArrayList<>();
+        this.followers = new HashSet<>();
+        this.following = new HashSet<>();
+        this.postedKweets = new HashSet<>();
+        this.likedKweets = new HashSet<>();
     }
     //endregion
 

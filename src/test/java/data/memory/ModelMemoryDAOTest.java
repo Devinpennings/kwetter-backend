@@ -1,36 +1,36 @@
 package data.memory;
 
-import data.PaginationDetails;
-import data.memory.ModelMemoryDAO;
+import org.junit.Test;
+import util.PaginationDetails;
 import model.Mock;
 import model.User;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by Devin
  */
-class ModelMemoryDAOTest {
+public class ModelMemoryDAOTest {
 
     @Test
-    void getAndAdd() {
+    public void getAndAdd() {
 
         Collection<User> users = Mock.users(10);
         ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
-
         userDAO.add(users);
+
         assertTrue(userDAO.get().containsAll(users));
 
     }
 
     @Test
-    void getWithPaginationLimit() {
+    public void getWithPaginationLimit() {
 
-        Collection<User> users = Mock.users(100);
+        Collection<User> users = Mock.users(10);
         ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
         userDAO.add(users);
 
@@ -43,19 +43,23 @@ class ModelMemoryDAOTest {
     }
 
     @Test
-    void getWithPaginationLimitAndPage() {
+    public void getWithPaginationLimitAndPage() {
 
         Collection<User> users = Mock.users(100);
         ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
         userDAO.add(users);
 
-        Collection<User> toGet = new ArrayList<>(users).subList(20, 30);
+        ArrayList<User> toSort = new ArrayList<>(users);
+        Collections.sort(toSort);
+        List<User> toGet = toSort.subList(20, 30);
 
         PaginationDetails paginationDetails = new PaginationDetails(10, 3);
-        assertEquals(10, userDAO.get(paginationDetails).size());
-        assertTrue(toGet.containsAll(userDAO.get(paginationDetails)));
+        Collection<User> result = userDAO.get(paginationDetails);
 
-        toGet = new ArrayList<>(users).subList(0, 20);
+        assertEquals(10, userDAO.get(paginationDetails).size());
+        assertTrue(result.containsAll(toGet));
+
+        toGet = new ArrayList<>(toSort).subList(0, 20);
 
         PaginationDetails paginationDetails2 = new PaginationDetails(20, 1);
         assertEquals(20, userDAO.get(paginationDetails2).size());
@@ -64,7 +68,7 @@ class ModelMemoryDAOTest {
     }
 
     @Test
-    void getWithIdAndAdd() {
+    public void getWithIdAndAdd() {
 
         User user = Mock.user();
         ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
@@ -75,7 +79,7 @@ class ModelMemoryDAOTest {
     }
 
     @Test
-    void update() {
+    public void update() {
 
         User user = Mock.user();
         ModelMemoryDAO<User> userDAO = new UserMemoryDAO();
@@ -90,7 +94,7 @@ class ModelMemoryDAOTest {
     }
 
     @Test
-    void delete() {
+    public void delete() {
 
         User user = Mock.user();
         ModelMemoryDAO<User> userDAO = new UserMemoryDAO();

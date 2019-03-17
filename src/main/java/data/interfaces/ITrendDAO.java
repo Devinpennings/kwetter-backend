@@ -9,6 +9,6 @@ import java.util.Collection;
  */
 public interface ITrendDAO extends IDAO<Trend> {
 
-    public Collection<String> getPopular(int limit);
+    Collection<String> getPopular(int limit);
 
 }

@@ -1,6 +1,6 @@
 package controller.rest;
 
-import data.PaginationDetails;
+import util.PaginationDetails;
 import model.User;
 import service.UserService;
 import util.exceptions.NotFoundException;
@@ -50,7 +50,7 @@ public class UserRESTController {
     @GET
     @Path("{id}")
     public Response get(
-            @PathParam("id") long id){
+            @PathParam("id") String id){
         try {
             return Response.ok(service.get(id)).build();
         } catch (NotFoundException e) {
@@ -62,7 +62,7 @@ public class UserRESTController {
     public Response put(@Valid User user){
         Optional<User> result = this.service.update(user);
         if (result.isPresent()) {
-            return Response.ok(result).build();
+            return Response.ok(result.get()).build();
         } else {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
@@ -75,8 +75,8 @@ public class UserRESTController {
 
     @POST
     @Path("{id}/follow")
-    public Response follow(@PathParam("id") long userId,
-                           @QueryParam("follower") long followerId){
+    public Response follow(@PathParam("id") String userId,
+                           @QueryParam("follower") String followerId){
 
         try {
             this.service.follow(followerId, userId);
@@ -89,8 +89,8 @@ public class UserRESTController {
 
     @POST
     @Path("{id}/unfollow")
-    public Response unfollow(@PathParam("id") long userId,
-                             @QueryParam("follower") long followerId){
+    public Response unfollow(@PathParam("id") String userId,
+                             @QueryParam("follower") String followerId){
 
         try {
             this.service.unfollow(followerId, userId);

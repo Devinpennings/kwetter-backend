@@ -1,12 +1,10 @@
 package service;
 
-import data.interfaces.IDAO;
-import data.PaginationDetails;
+import util.PaginationDetails;
 import data.interfaces.IUserDAO;
 import model.User;
 import util.exceptions.NotFoundException;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Optional;
@@ -14,13 +12,16 @@ import java.util.Optional;
 /**
  * Created by Devin
  */
-@Stateless
 public class UserService {
 
     @Inject
     private IUserDAO userDAO;
 
-    public User get(long id) throws NotFoundException {
+    public void setDAO(IUserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public User get(String id) throws NotFoundException {
         return userDAO.get(id).orElseThrow(NotFoundException::new);
     }
 
@@ -40,7 +41,7 @@ public class UserService {
         return userDAO.add(user);
     }
 
-    public void follow(long followerId, long toFollowId) throws NotFoundException {
+    public void follow(String followerId, String toFollowId) throws NotFoundException {
 
         User follower = this.get(followerId);
         User toFollow = this.get(toFollowId);
@@ -52,7 +53,7 @@ public class UserService {
 
     }
 
-    public void unfollow(long followerId, long toUnfollowId) throws NotFoundException {
+    public void unfollow(String followerId, String toUnfollowId) throws NotFoundException {
 
         User follower = this.get(followerId);
         User toUnfollow = this.get(toUnfollowId);
@@ -63,5 +64,4 @@ public class UserService {
         userDAO.update(toUnfollow);
 
     }
-
 }

@@ -1,29 +1,18 @@
 package data.memory;
 
 import data.interfaces.IDAO;
-import data.PaginationDetails;
+import util.PaginationDetails;
 import model.Model;
-import model.User;
 import util.IFunction;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.text.html.Option;
-import java.sql.Timestamp;
 import java.util.*;
 
 public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
-    @Inject
-    private MemoryUniqueIdentifier id;
-    Set<T> items;
+    protected final Set<T> items;
 
     public ModelMemoryDAO(){
-
-        this.id = new MemoryUniqueIdentifier();
         this.items = new TreeSet<>();
-
     }
 
     @Override
@@ -37,7 +26,7 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     public Collection<T> get(PaginationDetails paginationDetails){
 
         int from = paginationDetails.getIndexFrom();
-        int to = paginationDetails.getIndexTo();
+        int to = paginationDetails.getIndexTo() > this.items.size() ? this.items.size() : paginationDetails.getIndexTo();
 
         ArrayList<T> list = new ArrayList<>(this.items);
         return list.subList(from, to);
@@ -45,10 +34,10 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     }
 
     @Override
-    public Optional<T> get(long id){
+    public Optional<T> get(String id){
 
         return items.stream()
-                .filter(i -> i.getId() == id)
+                .filter(i -> i.getId().equals(id))
                 .findFirst();
 
     }
@@ -56,12 +45,7 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
     @Override
     public T add(T item) {
 
-        if (item.getId() == 0L) {
-            item.setId(id.next());
-        }
-
-        item.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        item.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        item.onCreate();
 
         this.items.add(item);
 
@@ -85,13 +69,13 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
         boolean wasPresent = this.items.contains(item);
 
-        this.executeForPresent(item, (o) -> this.items.remove(o));
+        this.executeForPresent(item, this.items::remove);
 
-        item.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        item.onUpdate();
 
         this.items.add(item);
 
-        if(wasPresent) return Optional.of(item);
+        if(!wasPresent) return Optional.of(item);
         else return Optional.empty();
 
     }
@@ -103,12 +87,15 @@ public abstract class ModelMemoryDAO<T extends Model> implements IDAO<T> {
 
     }
 
+    @Override
+    public abstract Collection<T> search(String term);
+
     private void executeForPresent(T model, IFunction<T> function){
 
-        if (model.getId() == 0L) return;
+        if (model.getId() == null) return;
 
         Optional<T> item = this.items.stream()
-            .filter(i -> i.getId() == model.getId())
+            .filter(i -> i.getId().equals(model.getId()))
             .findAny();
 
         item.ifPresent(function::call);

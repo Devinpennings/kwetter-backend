@@ -1,19 +1,16 @@
 package model;
 
-import model.Kweet;
-import model.Mock;
-import model.User;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by Devin
  */
-class KweetTest {
+public class KweetTest {
 
     @Test
-    void like() {
+    public void like() {
 
         Kweet k = Mock.kweet();
         User u = Mock.user();

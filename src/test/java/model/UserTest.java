@@ -1,12 +1,14 @@
 package model;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
-class UserTest {
+import static junit.framework.TestCase.assertTrue;
+
+
+public class UserTest {
 
     @Test
-    void follow() {
+    public void follow() {
 
         User u1 = Mock.user();
         User u2 = Mock.user();
@@ -19,7 +21,7 @@ class UserTest {
     }
 
     @Test
-    void post() {
+    public void post() {
 
         User u = Mock.user();
         Kweet k = Mock.kweet();

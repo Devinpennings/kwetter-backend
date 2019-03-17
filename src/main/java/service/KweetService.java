@@ -1,10 +1,8 @@
 package service;
 
-import data.interfaces.IDAO;
-import data.PaginationDetails;
+import util.PaginationDetails;
 import data.interfaces.IKweetDAO;
 import data.interfaces.IUserDAO;
-import data.memory.ModelMemoryDAO;
 import model.Kweet;
 import model.User;
 import util.exceptions.NotFoundException;
@@ -25,7 +23,7 @@ public class KweetService {
     @Inject
     private IUserDAO userDAO;
 
-    public Kweet get(long id) throws NotFoundException {
+    public Kweet get(String id) throws NotFoundException {
         return this.kweetDAO.get(id).orElseThrow(NotFoundException::new);
     }
 
@@ -37,7 +35,7 @@ public class KweetService {
         return kweetDAO.get(paginationDetails);
     }
 
-    public Kweet add(Kweet kweet, long userId) throws NotFoundException {
+    public Kweet add(Kweet kweet, String userId) throws NotFoundException {
 
         User user = this.userDAO.get(userId).orElseThrow(NotFoundException::new);
         user.postKweet(kweet);
@@ -49,7 +47,7 @@ public class KweetService {
 
     }
 
-    public void like(long kweetId, long userId) throws NotFoundException {
+    public void like(String kweetId, String userId) throws NotFoundException {
 
         Kweet kweet = this.get(kweetId);
         User user = this.userDAO.get(userId).orElseThrow(NotFoundException::new);
@@ -61,7 +59,7 @@ public class KweetService {
 
     }
 
-    public void unLike(long kweetId, long userId) throws NotFoundException {
+    public void unLike(String kweetId, String userId) throws NotFoundException {
 
         Kweet kweet = this.get(kweetId);
         User user = this.userDAO.get(userId).orElseThrow(NotFoundException::new);
