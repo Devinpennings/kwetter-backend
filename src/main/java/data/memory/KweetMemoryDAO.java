@@ -3,7 +3,6 @@ package data.memory;
 import data.interfaces.IKweetDAO;
 import model.Kweet;
 
-import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
 import javax.inject.Singleton;
 import java.util.Collection;

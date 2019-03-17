@@ -416,3 +416,15 @@ target/test-classes/service/UserServiceTest\.class
 target/test-classes/WEB-INF/arquillian\.xml
 
 target/test-classes/WEB-INF/beans\.xml
+
+target/classes/controller/jsf/UserJSFController\.class
+
+target/kwetter-1\.0\.jar
+
+target/kwetter-1\.0/index\.xhtml
+
+target/kwetter-1\.0/WEB-INF/classes/controller/jsf/UserJSFController\.class
+
+target/kwetter-1\.0/WEB-INF/lib/jsf-api-2\.2\.18\.jar
+
+target/kwetter-1\.0/WEB-INF/lib/primefaces-6\.2\.jar
