@@ -1,5 +1,6 @@
 package controller.rest;
 
+import model.Model;
 import util.PaginationDetails;
 import model.User;
 import service.UserService;
@@ -11,9 +12,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.Optional;
+import javax.ws.rs.core.*;
+import java.util.*;
 
 import static util.security.Constants.ADMIN;
 import static util.security.Constants.USER;
@@ -25,10 +25,13 @@ import static util.security.Constants.USER;
 @Path("users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UserRESTController {
+public class UserRESTController extends RestController {
 
     @Inject
     private UserService service;
+
+    @Context
+    private UriInfo uriInfo;
 
     @GET
     @RolesAllowed({ USER, ADMIN })
@@ -79,7 +82,9 @@ public class UserRESTController {
     @POST
     @PermitAll
     public Response post(@Valid User user){
-        return Response.status(Response.Status.CREATED).entity(this.service.add(user)).build();
+        User u = this.service.add(user);
+        this.initLinks(u);
+        return Response.status(Response.Status.CREATED).entity(u).build();
     }
 
     @POST

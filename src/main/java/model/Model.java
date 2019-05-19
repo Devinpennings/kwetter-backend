@@ -3,7 +3,11 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.ws.rs.core.Link;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 @MappedSuperclass
@@ -13,12 +17,17 @@ public abstract class Model implements Comparable<Model> {
     @Id
     private String id;
 
+    @Transient
+    @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+    private Collection<Link> links;
+
     private Timestamp createdAt;
     private Timestamp updatedAt;
     //endregion
 
     @PrePersist
     public void onCreate(){
+        this.links = new ArrayList<>();
         if (this.id == null) this.id = UUID.randomUUID().toString();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         if (this.createdAt == null)
@@ -42,6 +51,14 @@ public abstract class Model implements Comparable<Model> {
 
     public Timestamp getUpdatedAt() {
         return this.updatedAt;
+    }
+
+    public Collection<Link> getLinks() {
+        return this.links;
+    }
+
+    public void setLinks(Collection<Link> links) {
+        this.links = links;
     }
 
     @JsonIgnore

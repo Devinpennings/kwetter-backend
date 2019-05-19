@@ -3,6 +3,9 @@ package model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import javax.ws.rs.core.Link;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.*;
 
 @Entity
@@ -25,6 +28,7 @@ public class User extends Model {
     private Set<String> roles;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)
+    @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
     @ManyToMany(mappedBy = "following")
     private Set<User> followers;
 

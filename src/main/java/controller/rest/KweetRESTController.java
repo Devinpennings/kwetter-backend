@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 @Path("kweets")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
-public class KweetRESTController {
+public class KweetRESTController extends RestController {
 
     @Inject
     private KweetService service;
@@ -63,7 +63,9 @@ public class KweetRESTController {
     public Response post(@Valid Kweet kweet,
                          @QueryParam("userId") String userId){
         try {
-            return Response.ok(this.service.add(kweet, userId)).build();
+            Kweet k = this.service.add(kweet, userId);
+            this.initLinks(k);
+            return Response.ok(k).build();
         } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

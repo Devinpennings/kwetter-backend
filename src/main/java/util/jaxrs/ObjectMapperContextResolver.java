@@ -1,25 +1,27 @@
 package util.jaxrs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import javax.ws.rs.core.Link;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 @Provider
-public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper> {
+public class ObjectMapperContextResolver
+        implements ContextResolver<ObjectMapper> {
 
     private final ObjectMapper mapper;
 
     public ObjectMapperContextResolver() {
         mapper = new ObjectMapper();
-        DateFormat df = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z '('z')'");
-        mapper.setDateFormat(df);
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(Link.class, new LinkSerializer());
+        mapper.registerModule(simpleModule);
     }
 
     @Override
-    public ObjectMapper getContext(Class<?> type) { return mapper; }
-
+    public ObjectMapper getContext(Class<?> type) {
+        return mapper;
+    }
 }
