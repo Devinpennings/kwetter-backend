@@ -6,8 +6,10 @@ import model.User;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Created by Devin
@@ -25,5 +27,18 @@ public class UserJPADAO extends ModelJPADAO<User> implements IUserDAO {
                 User.class);
         query.setParameter("term", "%" + term + "%");
         return query.getResultList();
+    }
+
+    @Override
+    public Optional<User> getByUsername(String username) {
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE " +
+                        "u.username = :term ",
+                User.class);
+        query.setParameter("term", username);
+        try {
+            return Optional.of(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 }

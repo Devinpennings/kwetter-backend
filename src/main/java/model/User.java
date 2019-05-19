@@ -3,9 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -14,13 +12,17 @@ public class User extends Model {
     //region Fields
     private String username;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String biography;
     private String location;
     private String website;
     private String picture;
     private String email;
+
+    @ElementCollection
+    @JsonIgnore
+    private Set<String> roles;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=User.class)
     @ManyToMany(mappedBy = "following")
@@ -104,12 +106,14 @@ public class User extends Model {
     }
 
     public Collection<Kweet> getPostedKweets() {
-        return this.postedKweets;
+        return new TreeSet<>(this.postedKweets);
     }
 
     public Collection<Kweet> getLikedKweets() {
         return this.likedKweets;
     }
+
+    public Set<String> getRoles() { return this.roles; }
     //endregion
 
     //region Constructors
@@ -118,6 +122,7 @@ public class User extends Model {
         this.following = new HashSet<>();
         this.postedKweets = new HashSet<>();
         this.likedKweets = new HashSet<>();
+        this.roles = new HashSet<>();
     }
 
     public User(String username, String password, String biography, String location, String website, String picture, String email) {
@@ -133,6 +138,7 @@ public class User extends Model {
         this.following = new HashSet<>();
         this.postedKweets = new HashSet<>();
         this.likedKweets = new HashSet<>();
+        this.roles = new HashSet<>();
     }
     //endregion
 
@@ -166,6 +172,7 @@ public class User extends Model {
         kweet.setAuthor(this);
 
     }
+
     //endregion
 
 }

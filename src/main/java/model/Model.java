@@ -68,7 +68,7 @@ public abstract class Model implements Comparable<Model> {
 
         if (this.createdAt != null && o.getCreatedAt() != null){
             int date = Integer.compare(this.createdAt.getNanos(), o.createdAt.getNanos());
-            if (date != 0) return date;
+            if (date != 0) return 1;
         }
 
         if (this.id != null && o.getId() != null) {

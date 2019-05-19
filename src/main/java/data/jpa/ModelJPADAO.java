@@ -43,7 +43,8 @@ public abstract class ModelJPADAO<T extends Model> implements IDAO<T> {
 
     @Override
     public Optional<T> get(String id) {
-        return Optional.of(this.entityManager.find(this.entityClass, id));
+        T o = this.entityManager.find(this.entityClass, id);
+         return Optional.ofNullable(o);
     }
 
     @Override

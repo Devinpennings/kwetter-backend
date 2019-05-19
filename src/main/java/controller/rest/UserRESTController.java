@@ -5,6 +5,8 @@ import model.User;
 import service.UserService;
 import util.exceptions.NotFoundException;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -12,6 +14,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
+
+import static util.security.Constants.ADMIN;
+import static util.security.Constants.USER;
 
 /**
  * Created by Devin
@@ -26,6 +31,7 @@ public class UserRESTController {
     private UserService service;
 
     @GET
+    @RolesAllowed({ USER, ADMIN })
     public Response get(@DefaultValue("-1") @QueryParam("limitPerPage") int limitPerPage,
                         @DefaultValue("-1") @QueryParam("currentPage") int currentPage){
 
@@ -49,6 +55,7 @@ public class UserRESTController {
 
     @GET
     @Path("{id}")
+    @RolesAllowed({ ADMIN, USER })
     public Response get(
             @PathParam("id") String id){
         try {
@@ -59,6 +66,7 @@ public class UserRESTController {
     }
 
     @PUT
+    @RolesAllowed({ ADMIN, USER })
     public Response put(@Valid User user){
         Optional<User> result = this.service.update(user);
         if (result.isPresent()) {
@@ -69,12 +77,14 @@ public class UserRESTController {
     }
 
     @POST
+    @PermitAll
     public Response post(@Valid User user){
         return Response.status(Response.Status.CREATED).entity(this.service.add(user)).build();
     }
 
     @POST
     @Path("{id}/follow")
+    @RolesAllowed({ ADMIN, USER })
     public Response follow(@PathParam("id") String userId,
                            @QueryParam("follower") String followerId){
 
@@ -89,6 +99,7 @@ public class UserRESTController {
 
     @POST
     @Path("{id}/unfollow")
+    @RolesAllowed({ ADMIN, USER })
     public Response unfollow(@PathParam("id") String userId,
                              @QueryParam("follower") String followerId){
 

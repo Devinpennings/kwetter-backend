@@ -2,6 +2,7 @@ package controller.rest;
 
 import model.Kweet;
 import service.KweetService;
+import service.UserService;
 import util.exceptions.NotFoundException;
 
 import javax.ejb.Stateless;
@@ -23,9 +24,29 @@ public class KweetRESTController {
     @Inject
     private KweetService service;
 
+    @Inject
+    private UserService userService;
+
     @GET
-    public Response get(){
-        return Response.ok(this.service.get()).build();
+    public Response getPossibleUser(@QueryParam("userId") String userId) {
+        if (userId == null) {
+            return Response.ok(this.service.get()).build();
+        }
+        try {
+            return Response.ok(userService.get(userId).getPostedKweets()).build();
+        } catch (NotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
+    @Path("/timeline")
+    public Response getTimeline(@QueryParam("userId") String userId) {
+        try {
+            return Response.ok(this.userService.getTimeline(userId)).build();
+        } catch (NotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @GET

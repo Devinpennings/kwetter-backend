@@ -1,13 +1,16 @@
 package service;
 
+import model.Kweet;
+import model.Model;
 import util.PaginationDetails;
 import data.interfaces.IUserDAO;
 import model.User;
 import util.exceptions.NotFoundException;
 
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+
+import static util.security.Constants.USER;
 
 /**
  * Created by Devin
@@ -38,6 +41,15 @@ public class UserService {
     }
 
     public User add(User user){
+
+        if (user.getRoles().size() == 0) {
+            user.getRoles().add(USER);
+        }
+
+        if (user.getPicture() == null || user.getPicture().trim().length() == 0) {
+            user.setPicture("http://i.pravatar.cc/300");
+        }
+
         return userDAO.add(user);
     }
 
@@ -62,6 +74,16 @@ public class UserService {
 
         userDAO.update(follower);
         userDAO.update(toUnfollow);
+
+    }
+
+    public Collection<Kweet> getTimeline(String userId) throws NotFoundException {
+
+        SortedSet<Kweet> kweets = new TreeSet<>();
+        User user = this.userDAO.get(userId).orElseThrow(NotFoundException::new);
+        user.getFollowing().forEach(u -> kweets.addAll(u.getPostedKweets()));
+        kweets.addAll(user.getPostedKweets());
+        return ((TreeSet<Kweet>) kweets).descendingSet();
 
     }
 }

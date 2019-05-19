@@ -7,6 +7,7 @@ import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
 import javax.inject.Singleton;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -27,4 +28,10 @@ public class UserMemoryDAO extends ModelMemoryDAO<User> implements IUserDAO {
                          .collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<User> getByUsername(String username) {
+        return this.items.stream()
+                .filter(user ->
+                        user.getUsername().equals(username)).findFirst();
+    }
 }
